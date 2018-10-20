@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, SafeAreaView, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import ElevatedView from 'react-native-elevated-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {AppHeader} from '../reusables/commons';
 import commonStyle from '../commonStyle';
-import { WHITE_COLOR, PRIMARY_COLOR, BLACK_COLOR } from '../../util/Constants';
+import { WHITE_COLOR, PRIMARY_COLOR, BLACK_COLOR, LIGHT_GREY } from '../../util/Constants';
+import scale from '../../util/scale';
 
 const menuItemFirst = [
     {text: 'Starters', image: ''},
@@ -47,38 +48,59 @@ export default class MenuComponent extends Component {
         )
     }
 
+    renderMenuItem (item) {
+        return (
+            <TouchableOpacity style={{height: scale(100), width: scale(100), justifyContent: 'center', alignItems: 'center', borderColor: LIGHT_GREY, borderWidth:1}}>
+                <Text style={{textAlign: 'center'}}>{item.text}</Text>
+            </TouchableOpacity>
+            
+        )
+    }
+
+    renderBoxView () {
+        return (
+            <View style={{flex:1, paddingVertical: scale(10), alignSelf:'stretch', }}>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row',  }}>
+                {menuItemFirst.map((item) => {
+                    return (
+                        <View style={{flex:1, justifyContent: 'center', alignItems: 'center', padding: scale(10),}}>
+                            {this.renderMenuItem(item)}
+                        </View>
+                    )
+                })}
+                </View>
+                
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around',  }}>
+                {menuItemFirst.map((item) => {
+                    return (
+                        <View style={{flex:1,justifyContent: 'center', alignItems: 'center', padding: scale(10),}}>
+                            {this.renderMenuItem(item)}
+                        </View>
+                    )
+                })}
+                </View>
+
+                <View style={{  flexDirection: 'row', justifyContent: 'space-around',  }}>
+                {menuItemFirst.map((item) => {
+                    return (
+                        <View style={{flex:1,justifyContent: 'center', alignItems: 'center', padding: scale(10),}}>
+                            {this.renderMenuItem(item)}
+                        </View>
+                    )
+                })}
+                </View>
+            </View>
+        )
+    }
+
     renderContent () {
         return (
-            <View style={{backgroundColor: WHITE_COLOR, flex:1, paddingHorizontal: 16}}>
-                <ScrollView bounces={false} style={{flex:1}}>
-                    <View style={{height: 50, }}/>
-                    <View style={{paddingVertical:10, flexDirection: 'row', justifyContent: 'space-around',  }}>
-                    {menuItemFirst.map((item) => {
-                        return (
-                            <View style={{height:  80, width:  80, borderColor: PRIMARY_COLOR, borderWidth:1}}>
-                            
-                            </View>
-                        )
-                    })}
-                    </View>
-                    <View style={{paddingVertical:10, flexDirection: 'row', justifyContent: 'space-around',  }}>
-                    {menuItemFirst.map((item) => {
-                       return (
-                        <View style={{height:  80, width:  80, borderColor: PRIMARY_COLOR, borderWidth:1}}>
-                         </View>
-                    )
-                    })}
-                    </View>
-                    <View style={{paddingVertical:10, flexDirection: 'row', justifyContent: 'space-around', }}>
-                    {menuItemFirst.map((item) => {
-                        return (
-                            <View style={{height:  80, width:  80, borderColor: PRIMARY_COLOR, borderWidth:1}}>
-                             </View>
-                        )
-                    })}
-                    </View>
-                </ScrollView>
-                
+            <View style={{backgroundColor: WHITE_COLOR, flex:1, padding: scale(24), justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{height: scale(20)}}/>
+                {this.renderBoxView()}
+                {/* <View style={{flex:1}}/> */}
+                <View style={{height: scale(20)}}/>
+
             </View>
         )
     }
