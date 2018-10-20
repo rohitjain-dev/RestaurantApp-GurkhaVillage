@@ -5,6 +5,7 @@ import Signup from './components/Signup/SignupContainer';
 import Drawer from './components/Drawer/DrawerContainer';
 import Menu from './components/Menu/MenuContainer';
 import PastOrders from './components/PastOrders/PastOrderContainer';
+import Checkout from './components/Cart/CartContainer';
 import scale from './util/scale';
 
 const mainStackConfig = {
@@ -24,6 +25,7 @@ const DrawerRouter = createDrawerNavigator({
 const MainRouter = createStackNavigator({
     SignupScreen: {screen: Signup, navigationOptions: {header: null}},
     Drawer: {screen: DrawerRouter, navigationOptions: {header: null}},
+    CheckoutScreen: {screen: Checkout, navigationOptions: {header: null}},
 }, mainStackConfig);
 
 const resetAction = (routeName) =>  StackActions.reset({

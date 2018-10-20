@@ -26,7 +26,7 @@ export default class PastOrderComponent extends Component {
                     <Text style={{fontSize: scale(14)}}>{item.description}</Text>
                 </View>
                 <View style={{justifyContent: 'center', justifyContent: 'flex-end', flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.reorderButton}>
+                    <TouchableOpacity onPress ={() => this.props.onReorderClicked()} style={styles.reorderButton}>
                         <Text style={{color: WHITE_COLOR, fontSize: scale(14)}}>RE ORDER</Text>
                     </TouchableOpacity>
                     <View style={{width: scale(10)}} />
