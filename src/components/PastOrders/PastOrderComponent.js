@@ -30,7 +30,7 @@ export default class PastOrderComponent extends Component {
                         <Text style={{color: WHITE_COLOR, fontSize: scale(14)}}>RE ORDER</Text>
                     </TouchableOpacity>
                     <View style={{width: scale(10)}} />
-                    <TouchableOpacity style={styles.visitMenuButton}>
+                    <TouchableOpacity onPress = {() => this.props.onVisitMenuClicked()} style={styles.visitMenuButton}>
                         <Text style={{fontSize: scale(14)}}>VISIT MENU</Text>
                     </TouchableOpacity>
                 </View>
@@ -45,8 +45,9 @@ export default class PastOrderComponent extends Component {
                 <AppHeader
                     title='Past Order'
                     centerTitle
+                    leftIcon = 'menu'
                     hasLeftComponent
-                    leftOnPress ={() => this.props.goBack()} />
+                    leftOnPress ={() => this.props.toggleDrawer()} />
                 
                 <View style={{flex:1, backgroundColor: WHITE_COLOR, }}>
                     <FlatList

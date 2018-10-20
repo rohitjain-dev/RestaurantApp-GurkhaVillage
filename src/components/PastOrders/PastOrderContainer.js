@@ -9,7 +9,8 @@ class PastOrder extends Component {
     render () {
         return(
             <PastOrderComponent
-                goBack = {() => this.props.navigation.goBack()}/>
+                onVisitMenuClicked = {() => this.props.navigation.navigate('MenuScreen')}
+                toggleDrawer = {() =>  this.props.navigation.toggleDrawer()}/>
         )
     }
 }
