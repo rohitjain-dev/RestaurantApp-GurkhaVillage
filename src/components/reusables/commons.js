@@ -8,7 +8,7 @@ const APPBAR_HEIGHT = Platform.OS === 'ios' ? scale(44) : scale(56);
 
 export const AppHeader = ({title, hasLeftComponent, centerTitle = false, hasRightComponent, leftIcon, rightComponents, leftOnPress}) => {
     return (
-        <ElevatedView elevation={10} style={styles.container}>
+        <ElevatedView elevation={0} style={styles.container}>
             <View style={[styles.absoluteTextView,{ alignItems: centerTitle ? 'center' : 'flex-start', paddingLeft: centerTitle ? 0 : (hasLeftComponent ? 60 : 10)}]}>
                 <Text style={styles.titleText} >{title.toUpperCase()}</Text>
             </View>

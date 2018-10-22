@@ -32,7 +32,7 @@ export default class CheckoutComponent extends Component {
     renderDeliveryRadio = () => {
         return (
             <View style={{flexDirection: 'row' }}>
-                <View style={{padding: scale(10), paddingLeft: 0, flexDirection: 'row'}}>
+                <View style={{padding: scale(10), paddingBottom: 0, paddingLeft: 0, flexDirection: 'row'}}>
                     <RadioButtonInput
                         obj ={{}}
                         index={0}
@@ -51,7 +51,7 @@ export default class CheckoutComponent extends Component {
                     </TouchableOpacity>
                 </View>
 
-                 <View style={{padding: scale(10), flexDirection: 'row'}}>
+                 <View style={{padding: scale(10), paddingBottom: 0, flexDirection: 'row'}}>
                     <RadioButtonInput
                         obj ={{}}
                         index={1}
@@ -127,7 +127,7 @@ export default class CheckoutComponent extends Component {
     
     renderDeliveryOptions  = () => {
         return (
-            <View style={{ paddingTop: scale(10), borderColor: LIGHT_GREY, justifyContent: 'space-between', borderBottomWidth: 0.5, }}>
+            <View style={{ paddingVertical: scale(10), borderColor: LIGHT_GREY, justifyContent: 'space-between', borderBottomWidth: 0.5, }}>
                 <Text style={{ fontWeight: 'bold', fontSize: scale(14), }}>Choose Delivery Option</Text>
                 {this.renderDeliveryRadio()}
             </View>
@@ -136,17 +136,17 @@ export default class CheckoutComponent extends Component {
 
     renderAmountView = () => {
         return (
-            <View>
-                <View style={{paddingTop: scale(10), borderColor: LIGHT_GREY, justifyContent: 'space-between', flexDirection: 'row'}}>
+            <View style={{paddingTop: scale(12),}}>
+                <View style={{ borderColor: LIGHT_GREY, justifyContent: 'space-between', flexDirection: 'row'}}>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>Subtotal</Text>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>{getFormattedCurrency(3090.9)}</Text>
                 </View>
-                <View style={{justifyContent: 'space-between', paddingVertical: scale(5), paddingBottom: scale(10), flexDirection: 'row'}}>
+                <View style={{justifyContent: 'space-between', paddingTop: scale(5), paddingBottom: scale(12), flexDirection: 'row'}}>
                     <Text style={{fontSize: scale(10), }}>Delivery: </Text>
                     <Text style={{fontSize: scale(10), }}>{getFormattedCurrency(20)}</Text>
                 </View>
 
-                <View style={{paddingVertical: scale(10),borderBottomWidth: 0.5, borderTopWidth: 0.5,  borderColor: LIGHT_GREY, justifyContent: 'space-between', flexDirection: 'row'}}>
+                <View style={{paddingVertical: scale(12), borderTopWidth: 0.5,  borderColor: LIGHT_GREY, justifyContent: 'space-between', flexDirection: 'row'}}>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>Grand Total</Text>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>{getFormattedCurrency(3110.9)}</Text>
                 </View>
@@ -175,7 +175,7 @@ export default class CheckoutComponent extends Component {
                 
                 <AppHeader
                     hasLeftComponent
-                    hasRightComponent //if cart has one or more items.
+                   // hasRightComponent //if cart has one or more items.
                     rightComponents = {[this.deleteButton]}
                     leftOnPress={() => this.props.goBack()}
                     title='Your Cart' />

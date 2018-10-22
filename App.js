@@ -16,7 +16,7 @@ export default class App extends Component {
 
     render() {
       return (
-          <SafeAreaView style ={{flex:1, backgroundColor: SECONDARY_COLOR}}>
+          <SafeAreaView style ={{flex:1, backgroundColor: PRIMARY_COLOR}}>
             <StatusBar barStyle='light-content' backgroundColor={PRIMARY_COLOR} />
             <AppNavigator />
           </SafeAreaView>
