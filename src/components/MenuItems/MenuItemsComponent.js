@@ -1,30 +1,44 @@
 import React, {Component} from 'react';
-import {View, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, TextInput,Text, TouchableOpacity, FlatList} from 'react-native';
 import ElevatedView from 'react-native-elevated-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { filter, some, includes } from 'lodash/collection';
+import { debounce } from 'lodash/function';
 
-import {AppHeader} from '../reusables/commons';
+import {AppHeader, ItemAdjustor} from '../reusables/commons';
 import commonStyle from '../commonStyle';
-import { WHITE_COLOR, PRIMARY_COLOR, BLACK_COLOR } from '../../util/Constants';
+import styles from './style';
+import * as CONST from '../../util/Constants';
+import scale, { verticalScale } from '../../util/scale';
+import { getFormattedCurrency } from '../../util/common';
 
 
 export default class MenuItemsComponent extends Component {
     constructor (props) {
         super (props);
+        this.state = {
+            list: this.props.items,
+            searchText: ''
+        }
     }
 
     renderSearchBar () {
         return (
-            <View style={{height: 60, paddingVertical: 10, backgroundColor: PRIMARY_COLOR, paddingHorizontal: 16}}>
-                <ElevatedView elevation={5} style={{backgroundColor: WHITE_COLOR, borderRadius: 2, flex:1, flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{height: 60, paddingVertical: 10, backgroundColor: CONST.PRIMARY_COLOR, paddingHorizontal: 16}}>
+                <ElevatedView elevation={5} style={{backgroundColor: CONST.WHITE_COLOR, borderRadius: 2, flex:1, flexDirection: 'row', alignItems: 'center'}}>
                     <TouchableOpacity activeOpacity={1} style={{ width: 40, justifyContent: 'center', alignItems: 'center' }}>
-                        <Icon name='search' color={BLACK_COLOR} size={24} />
+                        <Icon name='search' color={CONST.BLACK_COLOR} size={24} />
                     </TouchableOpacity>
                     <View style={{ flex: 1 }}>
-                        <TextInput style={{flex:1}} placeholder='Search' />
+                        <TextInput
+                            autoCorrect={false}
+                            underlineColorAndroid = {CONST.WHITE_COLOR}
+                            style={{flex:1}}
+                            onChangeText={this.filterData}
+                            placeholder='Search' />
                     </View>
                     <TouchableOpacity style={{ width: 40, justifyContent: 'center', alignItems: 'center' }}>
-                        <Icon name='mic' size={24} color={BLACK_COLOR} />
+                        <Icon name='mic' size={24} color={CONST.BLACK_COLOR} />
                     </TouchableOpacity>
                 </ElevatedView>              
             </View>
@@ -33,6 +47,42 @@ export default class MenuItemsComponent extends Component {
 
     getCorrectHeader () {
         return 'Starters'
+    }
+
+    renderItemCell = ({item}) => (
+        <View style={{padding: scale(10), borderBottomColor: CONST.GREY_BORDER, flexDirection: 'row', borderBottomWidth: 1, }}>
+            <View style={{ paddingTop: scale(3) }}>
+                <View style={{ padding: scale(1), borderColor: item.veg ? 'green' : 'red', borderWidth: 0.5 }}>
+                    <Icon name='brightness-1' color={item.veg ? 'green' : 'red'} size={10} />
+                </View>
+            </View>
+            <View style={{ flex: 1, paddingLeft: scale(5) }}>
+                <Text style={{fontWeight: 'bold', fontSize: scale(14)}}>{item.name}</Text>
+                <Text style={{ fontSize: scale(12)}}>{item.description}</Text>
+                
+                <Text style={[styles.amountText, { textAlign: 'left', paddingTop: scale(5),  }]}>{getFormattedCurrency(item.cost)}</Text>
+            </View>
+            <View style={{ paddingLeft: scale(5), height: scale(40) }} >
+                <ItemAdjustor
+                    decreaseQuantity={() => console.log('descrease')}
+                    increaseQuantity={() => console.log('increase')}
+                    quantity={54} />
+                <View style={{ paddingTop: scale(3), alignSelf: 'flex-end' }}>
+                    <Text style={styles.amountText}>{getFormattedCurrency(item.quantity * item.cost)}</Text>
+                </View>
+            </View>
+        </View>
+    )
+
+    renderContent () {
+        return (
+            <View style={{flex:1}}>
+                <FlatList
+                    renderItem = {this.renderItemCell}
+                    data = {this.state.list}
+                    extraData = {this.state.list} />
+            </View>
+        )
     }
 
     render () {
@@ -45,12 +95,51 @@ export default class MenuItemsComponent extends Component {
                     leftOnPress ={() => toggleDrawer()}
                     title={this.getCorrectHeader()} />
 
-                <View style={{flex:1, backgroundColor: WHITE_COLOR, }}>
+                <View style={{flex:1, backgroundColor: CONST.WHITE_COLOR, }}>
                     {this.renderSearchBar()}
-                    {/* {this.renderContent()} */}
+                    {this.renderContent()}
                 </View>
 
             </SafeAreaView>
         )
     }
+
+    filterData = (text) => {
+        this.setState({ searchText: text });
+        debounce(() => {
+            // use internal search logic (depth first)!
+            const results = this.internalSearch(text);
+            this.setState({list: results});  
+            
+          }, 300)();
+    }
+
+    internalSearch = input => {
+        const {items} = this.props;
+        if (input === '') {
+            //return whole list.
+            return items;
+        }
+        return filter(items, item => {
+          return this.depthFirstSearch(item.name, item.description, input);
+        });
+      };
+    
+      depthFirstSearch = (value, label, input) => {
+        // let's get recursive boi
+        let type = typeof value;
+        // base case(s)
+        if (type === 'string' || type === 'number' || type === 'boolean' || type === Object) {
+          return (
+            includes(
+                value.toString().toLowerCase(),
+                input.toString().toLowerCase()
+              ) || includes(
+                label.toString().toLowerCase(),
+                input.toString().toLowerCase()
+              )
+          )
+        }
+        return some(collection, item => this.depthFirstSearch(item, input));
+      };
 }

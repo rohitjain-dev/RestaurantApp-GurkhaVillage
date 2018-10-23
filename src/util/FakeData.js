@@ -80,6 +80,7 @@ export const STARTERS =  [
         description: 'Home made lentil soup. Sweet and sour, garnish with fresh coriander and a lemon wedge.',
         cost: 4.25,
         veg: true,
+        quantity: 0,
     },
     {
         id: 2,
@@ -87,6 +88,7 @@ export const STARTERS =  [
         description: 'Thick lentil pancake made with garlic, ginger and fresh herbs, served with green salad & mint sauce.',
         cost: 4.50,
         veg: true,
+        quantity: 0,
     },
     {
         id: 3,
@@ -94,6 +96,7 @@ export const STARTERS =  [
         description: 'Crunchy pan-fried vegetables, potatoes, mushroom, and baby sweet corn. Sweet and sour served on a puri bread.',
         cost: 4.75,
         veg: true,
+        quantity: 0,
     },
     {
         id: 4,
@@ -108,6 +111,7 @@ export const STARTERS =  [
         description: 'Lamb chops marinated with fresh herbs and spices cooked in tandoor. Served with green salad & mint sauce.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
 
     {
@@ -123,6 +127,7 @@ export const STARTERS =  [
         description: 'Home made chicken/lamb dumplings served with stone ground chutney.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
     {
         id: 8,
@@ -130,6 +135,7 @@ export const STARTERS =  [
         description: 'Prawn cooked with tomato, herbs and spices. Sweet and sour. Served on purl bread',
         cost: 5.75,
         veg: true,
+        quantity: 0,
     },
     {
         id: 9,
@@ -144,6 +150,7 @@ export const STARTERS =  [
         description: 'Delicately marinated tender lamb garnish with fresh garlic, ginger, spring onion, red pepper. Served with green salad.',
         cost: 5.75,
         veg: false,
+        quantity: 0,
     },
     {
         id: 11,
@@ -151,6 +158,7 @@ export const STARTERS =  [
         description: 'Tender breast of chicken with fresh spices and Himalayan herbs garnish with lemon juice and olive oil. Served with green salad.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
     {
         id: 12,
@@ -158,6 +166,7 @@ export const STARTERS =  [
         description: 'Lightly spiced mixed vegetables stuffed savoury, deep-fried. Freshly home made served with mint and green salad.',
         cost: 4.25,
         veg: true,
+        quantity: 0,
     },
     {
         id: 13,
@@ -165,6 +174,7 @@ export const STARTERS =  [
         description: 'Meat Samosas served with green salad & mint sauce.',
         cost: 4.50,
         veg: false,
+        quantity: 0,
     },
     {
         id: 14,
@@ -172,6 +182,7 @@ export const STARTERS =  [
         description: 'Specially spiced lamb minced cooked in Tandoor oven served with salad and chutney.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
     {
         id: 15,
@@ -179,6 +190,7 @@ export const STARTERS =  [
         description: 'Tender pieces of chicken cooked with green chilli, capsicum, tomatoes, chopped onions, soy sauce, typical Nepalese herbs and spices. Garnished wish spring onions, hot and spicy. Served with green salad.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
     {
         id: 16,
@@ -186,6 +198,7 @@ export const STARTERS =  [
         description: 'Quarter chicken cooked in Tandoor oven served with green salad and chutney.',
         cost: 4.95,
         veg: false,
+        quantity: 0,
     },
     {
         id: 17,
@@ -193,6 +206,7 @@ export const STARTERS =  [
         description: ' Large King Prawn lightly marinated with herbs and spices, battered with rice flour then deep fried, served with chutney and green salad.',
         cost: 6.25,
         veg: false,
+        quantity: 0,
     },
     {
         id: 18,
@@ -200,5 +214,6 @@ export const STARTERS =  [
         description: 'Served with chutney tray',
         cost: 1.25,
         veg: false,
+        quantity: 0,
     },
 ];

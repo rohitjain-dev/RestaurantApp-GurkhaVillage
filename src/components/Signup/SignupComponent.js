@@ -91,9 +91,7 @@ export default class SignupComponent extends Component {
     render () {
         return (
             <SafeAreaView style={commonStyle.safeAreaViewContainer}>
-                {/* <ScrollView bounces = {false}  style={{flex:1,backgroundColor: LIGHT_BLUE, padding: scale(16)}}> */}
-                    {this.renderInputView()}
-                {/* </ScrollView> */}
+                {this.renderInputView()}
             </SafeAreaView>
         )
     }

@@ -3,24 +3,32 @@
  */
 
 import React, {Component} from 'react';
-import {StatusBar, SafeAreaView, Text, View} from 'react-native';
-
-import AppNavigator from './src/AppNavigator';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from './src/util/Constants';
+import { Provider } from 'react-redux'
+import createAppStore from './src/store';
+import Home from './src/Home';
 
 export default class App extends Component {
     constructor (props) {
       super(props);
+      this.state = {
+        store: createAppStore()
+      }
       console.disableYellowBox = true;
     }
 
     render() {
       return (
-          <SafeAreaView style ={{flex:1, backgroundColor: PRIMARY_COLOR}}>
-            <StatusBar barStyle='light-content' backgroundColor={PRIMARY_COLOR} />
-            <AppNavigator />
-          </SafeAreaView>
+        <Provider store={this.state.store}>
+          <Home/>
+        </Provider>
           
       );
   }
 }
+
+/**
+ * <SafeAreaView style ={{flex:0, backgroundColor: PRIMARY_COLOR}}>
+            <StatusBar barStyle='light-content' backgroundColor={PRIMARY_COLOR} />
+            <AppNavigator />
+          </SafeAreaView>
+ */
