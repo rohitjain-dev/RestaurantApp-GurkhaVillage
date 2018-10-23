@@ -6,6 +6,8 @@ import Drawer from './components/Drawer/DrawerContainer';
 import Menu from './components/Menu/MenuContainer';
 import PastOrders from './components/PastOrders/PastOrderContainer';
 import Checkout from './components/Cart/CartContainer';
+import MenuItems from './components/MenuItems/MenuItemsContainer';
+
 import scale from './util/scale';
 
 const mainStackConfig = {
@@ -18,8 +20,9 @@ const drawerConfig = {
 }
 
 const DrawerRouter = createDrawerNavigator({
-    MenuScreen: {screen: Menu},
+    MenuGroupScreen: {screen: Menu},
     PastOrderScreen: {screen: PastOrders},
+    MenuItemsScreen: {screen: MenuItems}
 }, drawerConfig);
 
 const MainRouter = createStackNavigator({

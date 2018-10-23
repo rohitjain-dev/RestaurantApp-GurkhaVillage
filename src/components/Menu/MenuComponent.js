@@ -50,7 +50,7 @@ export default class MenuComponent extends Component {
 
     renderMenuItem (item) {
         return (
-            <TouchableOpacity style={{height: scale(100), width: scale(100), justifyContent: 'center', alignItems: 'center', borderColor: LIGHT_GREY, borderWidth:1}}>
+            <TouchableOpacity onPress={()=> this.props.navigateToMenuItem(1)} style={{height: scale(100), width: scale(100), justifyContent: 'center', alignItems: 'center', borderColor: LIGHT_GREY, borderWidth:1}}>
                 <Text style={{textAlign: 'center'}}>{item.text}</Text>
             </TouchableOpacity>
             

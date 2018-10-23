@@ -43,7 +43,7 @@ export default class DrawerComponent extends Component {
             <SafeAreaView style={commonStyles.safeAreaViewContainer}>
                 <ScrollView bounces = {false} style={{flex:1}}>
                     {this.renderUserSection ()}
-                    {this.renderDrawerItem('Home', () => navigateTo('MenuScreen'))}
+                    {this.renderDrawerItem('Home', () => navigateTo('MenuGroupScreen'))}
                     {this.renderDrawerItem('My Orders', () => navigateTo('PastOrderScreen'))}
                     {this.renderDrawerItem('Profile', () => showToast('Feature yet to be developed'))}
                     {this.renderDrawerItem('Notification', () => showToast('Feature yet to be developed'))}

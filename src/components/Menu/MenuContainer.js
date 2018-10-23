@@ -10,6 +10,7 @@ class Menu extends Component {
     render () {
         return (
             <MenuComponent
+                navigateToMenuItem = {type => this.props.navigation.navigate('MenuItemsScreen', {type})}
                 toggleDrawer = {() => this.props.navigation.toggleDrawer()} />
         )
     }
