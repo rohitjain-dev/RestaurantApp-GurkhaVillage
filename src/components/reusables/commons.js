@@ -6,9 +6,9 @@ import * as CONST from '../../util/Constants';
 import scale from '../../util/scale';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? scale(44) : scale(56);
 
-export const AppHeader = ({title, hasLeftComponent, centerTitle = false, hasRightComponent, leftIcon, rightComponents, leftOnPress}) => {
+export const AppHeader = ({title, hasLeftComponent, backgroundColor = CONST.PRIMARY_COLOR, centerTitle = false, hasRightComponent, leftIcon, rightComponents, leftOnPress}) => {
     return (
-        <ElevatedView elevation={0} style={styles.container}>
+        <ElevatedView elevation={0} style={[styles.container, {backgroundColor:backgroundColor }]}>
             <View style={[styles.absoluteTextView,{ alignItems: centerTitle ? 'center' : 'flex-start', paddingLeft: centerTitle ? 0 : (hasLeftComponent ? 60 : 10)}]}>
                 <Text style={styles.titleText} >{title.toUpperCase()}</Text>
             </View>

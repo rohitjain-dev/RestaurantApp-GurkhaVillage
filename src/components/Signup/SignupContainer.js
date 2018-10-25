@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import SignupComponent from './SignupComponent';
 
-import {resetAction} from '../../AppNavigator';
-
 class Signup extends Component {
     constructor (props) {
         super (props);
@@ -11,7 +9,8 @@ class Signup extends Component {
     render () {
         return (
             <SignupComponent
-                navigateToLogin = {() => this.props.navigation.dispatch(resetAction('Drawer'))}
+                goBack = {() => this.props.navigation.goBack()}
+                navigateToLogin = {() => console.log('')}
             />
         )
     }

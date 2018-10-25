@@ -220,3 +220,33 @@ export const STARTERS =  [
         quantity: 0,
     },
 ];
+
+/**
+ * <View style={{paddingBottom: scale(5), flexDirection: 'row',}}>
+                        <View style={{justifyContent: 'center', paddingRight: scale(10)}}>
+                            <Icon name ='home' size={28} color={PRIMARY_COLOR} />
+                        </View>
+                        <View style={{flex:1, borderBottomColor: GREY_BORDER, paddingVertical: scale(10), borderBottomWidth: 0.5,}}>
+                            <Text>{`3 Edgar Buildings, George Street\nBath England, Edgar Buildings\nBA1 2FJ`}</Text>
+                        </View>
+                        <View style={{justifyContent: 'center', paddingRight: scale(10)}}>
+                            <Icon name ='check-circle' size={24} color={PRIMARY_COLOR} />
+                        </View>
+                       
+                    </View>
+ */
+
+export const ADDRESSES = [
+    {
+        id: 1,
+        type: 0,
+        address: '3 Edgar Buildings, George Street\nBath England, Edgar Buildings\nBA1 2FJ',
+        isSelected: true,
+    },
+    {
+        id: 2,
+        type: 1,
+        address: '49 Featherstone Street, LONDON,\nEC1Y 8SY,\nUNITED KINGDOM',
+        isSelected: false,
+    }
+]

@@ -14,6 +14,7 @@ const BELL_ICON = require('../../../assets/icon_bell_.png');
 const SETTING_ICON = require('../../../assets/icon_settings_.png');
 const CONTACT_ICON = require('../../../assets/icon_telephone_.png');
 const LOGOUT_ICON = require('../../../assets/icon_logout_.png');
+const SMALL_LOGO = require('../../../assets/icon_logo_small_.png')
 
 export default class DrawerComponent extends Component {
     constructor (props) {
@@ -38,13 +39,22 @@ export default class DrawerComponent extends Component {
         return (
             <TouchableOpacity onPress={() =>action()} style={styles.drawerItemContainer}>
                 <View style={styles.drawerInnerItemContainer}>
-                    {/* <Icon name='home' color={WHITE_COLOR} size={32} /> */}
                     <Image style={{height: scale(24), width: scale(24)}} source = {image} />
                 </View>
                 <View style={styles.drawerItemTextContainer}>
                     <Text style={styles.drawerItemText}>{name}</Text>
                 </View>
             </TouchableOpacity>
+        )
+    }
+
+    renderBottomLogo() {
+        return (
+            <View style={{bottom: 0,  paddingBottom: scale(20), width: scale(250), alignContent: 'center', position: 'absolute',}}>
+                <Image source ={SMALL_LOGO} style={{alignSelf: 'center'}} />
+                <Text style={{fontSize: scale(14), fontWeight: 'bold', textAlign: 'center', color:WHITE_COLOR}}>GURKHA VILLAGE</Text>
+                <Text style={{fontSize: scale(6), fontWeight: 'bold',textAlign: 'center', color:WHITE_COLOR}}>NEPALESE RESTAURANT & BAR</Text>
+            </View>
         )
     }
 
@@ -59,8 +69,9 @@ export default class DrawerComponent extends Component {
                     {this.renderDrawerItem('Profile', () => showToast('Feature yet to be developed'), PROFILE_ICON)}
                     {this.renderDrawerItem('Notifications', () => showToast('Feature yet to be developed'), BELL_ICON)}
                     {this.renderDrawerItem('Contact Us', () => showToast('Feature yet to be developed'), CONTACT_ICON)}
-                    {this.renderDrawerItem('Log out', () => navigateTo('SignupScreen', {}, true), LOGOUT_ICON)}
+                    {this.renderDrawerItem('Log out', () => navigateTo('LoginScreen', {}, true), LOGOUT_ICON)}
                 </ScrollView>
+                {this.renderBottomLogo()}
             </SafeAreaView>
         )
     }

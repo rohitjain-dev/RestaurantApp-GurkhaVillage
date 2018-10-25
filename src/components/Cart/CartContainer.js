@@ -12,6 +12,7 @@ class Checkout extends Component {
         const {list, totalAmount, grandTotal, promoCode, addItem, removeItem} = this.props;
         return (
             <CheckoutComponent
+                checkoutCart = {() => this.props.navigation.navigate('CheckoutScreen')}
                 addItem = {(item) => addItem(item)}
                 removeItem = {(item) => removeItem(item)}
                 cartList = {list}

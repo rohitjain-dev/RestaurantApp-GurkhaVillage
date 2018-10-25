@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import commonStyle from '../commonStyle';
 import { WHITE_COLOR, LIGHT_GREY, PRIMARY_COLOR, SECONDARY_COLOR, LIGHT_BLUE, BLACK_COLOR } from '../../util/Constants';
 import scale, { verticalScale } from '../../util/scale';
+import { AppHeader } from '../reusables/commons';
 
 export default class SignupComponent extends Component {
     constructor (props) {
@@ -81,7 +82,7 @@ export default class SignupComponent extends Component {
                 </TouchableOpacity>
                 
                 <View style={{paddingVertical: verticalScale(10),justifyContent: 'center', alignItems:'center'}}>
-                    <Text style={{color: WHITE_COLOR, fontSize: scale(14)}}>You have an account ?<Text onPress={() => this.props.navigateToLogin()} style={{color: BLACK_COLOR}}> Login</Text></Text>
+                    <Text style={{color: WHITE_COLOR, fontSize: scale(14)}}>You have an account ?<Text onPress={() => this.props.goBack()} style={{color: BLACK_COLOR}}> Login</Text></Text>
                 </View>
                 </ScrollView>
              </View>
@@ -91,6 +92,12 @@ export default class SignupComponent extends Component {
     render () {
         return (
             <SafeAreaView style={commonStyle.safeAreaViewContainer}>
+                <AppHeader
+                    backgroundColor = {LIGHT_BLUE}
+                    leftOnPress = {() => this.props.goBack()}
+                    title =''
+                    hasLeftComponent
+                    />
                 {this.renderInputView()}
             </SafeAreaView>
         )

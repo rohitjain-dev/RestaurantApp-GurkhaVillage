@@ -1,11 +1,13 @@
 import {createStackNavigator, createDrawerNavigator, StackActions, NavigationActions} from 'react-navigation';
 import React from 'react';
 
+import Login from './components/Login/LoginContainer';
 import Signup from './components/Signup/SignupContainer';
 import Drawer from './components/Drawer/DrawerContainer';
 import Menu from './components/Menu/MenuContainer';
 import PastOrders from './components/PastOrders/PastOrderContainer';
-import Checkout from './components/Cart/CartContainer';
+import Cart from './components/Cart/CartContainer';
+import Checkout from './components/Checkout/CheckoutContainer';
 import MenuItems from './components/MenuItems/MenuItemsContainer';
 
 import scale from './util/scale';
@@ -26,8 +28,10 @@ const DrawerRouter = createDrawerNavigator({
 }, drawerConfig);
 
 const MainRouter = createStackNavigator({
+    LoginScreen: {screen: Login, navigationOptions: {header: null}},
     SignupScreen: {screen: Signup, navigationOptions: {header: null}},
     Drawer: {screen: DrawerRouter, navigationOptions: {header: null}},
+    CartScreen: {screen: Cart, navigationOptions: {header: null}},
     CheckoutScreen: {screen: Checkout, navigationOptions: {header: null}},
 }, mainStackConfig);
 

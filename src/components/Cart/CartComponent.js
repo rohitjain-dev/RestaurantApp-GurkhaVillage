@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity,Text,ScrollView,TextInput, SafeAreaView} from 'react-native';
 import { AppHeader, ItemAdjustor } from '../reusables/commons';
-import { WHITE_COLOR, LIGHT_GREY, BLACK_COLOR, PRIMARY_COLOR, SECONDARY_COLOR } from '../../util/Constants';
+import { WHITE_COLOR, LIGHT_GREY, PRIMARY_COLOR, SECONDARY_COLOR } from '../../util/Constants';
 import commonStyle from '../commonStyle';
 import showToast from '../../util/Toast';
 import scale from '../../util/scale';
-import {CART_ITEMS} from '../../util/FakeData';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './style';
 import { getFormattedCurrency } from '../../util/common';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import {RadioButtonInput} from 'react-native-simple-radio-button';
 
-const  radio_props = [
-    {label: 'Home Delivery', value: 0 },
-    {label: 'Take Away', value: 1 }
-  ];
 
 export default class CheckoutComponent extends Component {
     constructor (props) {
@@ -96,7 +91,7 @@ export default class CheckoutComponent extends Component {
     }
     
     renderItems = () => {
-        const {cartList, totalAmount, grandTotal, promoCode, addItem, removeItem} = this.props;
+        const {cartList, addItem, removeItem} = this.props;
         return (
             <View>
                 {cartList.map((item) => {
@@ -137,7 +132,7 @@ export default class CheckoutComponent extends Component {
     }
 
     renderAmountView = () => {
-        const {cartList, totalAmount, grandTotal, promoCode} = this.props;
+        const {totalAmount} = this.props;
 
         return (
             <View style={{paddingTop: scale(12),}}>
@@ -159,9 +154,9 @@ export default class CheckoutComponent extends Component {
     }
 
     renderBottomView () {
-        const {cartList, totalAmount, grandTotal, promoCode} = this.props;
+        const {totalAmount} = this.props;
         return (
-            <TouchableOpacity onPress = {() => showToast('Feature yet to be developed.')} style={{position: 'absolute', backgroundColor: SECONDARY_COLOR, bottom: 0, right:0, left: 0, height: scale(50), flexDirection: 'row'}}>
+            <TouchableOpacity onPress = {() => this.props.checkoutCart()} style={{position: 'absolute', backgroundColor: SECONDARY_COLOR, bottom: 0, right:0, left: 0, height: scale(50), flexDirection: 'row'}}>
                 <View style={{flex: 1, paddingHorizontal: scale(10), justifyContent: 'center'}}>
                     <Text style={{fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR}}>Place order ({getFormattedCurrency((totalAmount+this.state.deliveryAmount))})</Text>
                 </View>

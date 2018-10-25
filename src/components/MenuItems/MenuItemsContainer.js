@@ -16,7 +16,7 @@ class MenuItems extends Component {
         return (
             <MenuItemsComponent
                 totalAmount = {this.props.totalAmount}
-                navigateToCart = {() => navigation.navigate('CheckoutScreen')}
+                navigateToCart = {() => navigation.navigate('CartScreen')}
                 addItem = {(item) => this.props.addItem(item)}
                 removeItem = {(item) => this.props.removeItem(item)}
                 items = {starters}
