@@ -104,6 +104,7 @@ export const STARTERS =  [
         description: 'Chopped potato, green beans, green peas, carrot & onion lightly spiced with herbs & spices, battered and deep fried, served with green salad & mint sauce',
         cost: 4.25,
         veg: true,
+        quantity: 0,
     },
     {
         id: 5,
@@ -120,6 +121,7 @@ export const STARTERS =  [
         description: 'Home made vegetable dumplings served with stone ground chutney.',
         cost: 4.75,
         veg: true,
+        quantity: 0,
     },
     {
         id: 7,
@@ -143,6 +145,7 @@ export const STARTERS =  [
         description: 'Tender pieces of chicken with cucumber, potatoes, cherry tomato, spring onion, yoghurt and fresh herbs garnish with chat masala and served with green salad',
         cost: 4.75,
         veg: false,
+        quantity: 0,
     },
     {
         id: 10,

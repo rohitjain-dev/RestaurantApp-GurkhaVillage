@@ -36,7 +36,7 @@ export const AppHeader = ({title, hasLeftComponent, centerTitle = false, hasRigh
 
 export const ItemAdjustor = ({decreaseQuantity, increaseQuantity, quantity}) => {
     return (
-        <View style={styles.adjustorContainer}>
+        quantity !== 0 ? <View style={styles.adjustorContainer}>
             <TouchableOpacity onPress={() => decreaseQuantity()} style={styles.adjusterRightTouchable}>
                 <Text style={styles.adjusterSign}>-</Text>
             </TouchableOpacity>
@@ -48,7 +48,15 @@ export const ItemAdjustor = ({decreaseQuantity, increaseQuantity, quantity}) => 
             <TouchableOpacity onPress={() => increaseQuantity()} style={styles.adjusterLeftTouchable}>
             <Text style={styles.adjusterSign}>+</Text>
             </TouchableOpacity>
-        </View>
+        </View> : 
+        <TouchableOpacity  onPress={() => increaseQuantity()} style={styles.adjustorContainer}>
+             <View style={styles.adjusterRightTouchable}>
+                <Text style={styles.adjusterSign}>+</Text>
+            </View>
+            <View style={{paddingHorizontal: scale(5), backgroundColor: CONST.WHITE_COLOR, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={styles.adjusterFont}>ADD</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 

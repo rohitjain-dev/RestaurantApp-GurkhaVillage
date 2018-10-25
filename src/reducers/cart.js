@@ -1,11 +1,12 @@
 import * as CONST from '../util/Constants';
 
 const initialState = {
-    items: [],
+    list: [],
     totalAmount: 0,
     delivery: 20,
     grandTotal: 0,
-    promoCode: 'FIRST50'
+    promoCode: 'FIRST50',
+    numberOfItems: 0,
 };
 
 export default (state = initialState, action) => {
@@ -13,13 +14,14 @@ export default (state = initialState, action) => {
         case CONST.ADD_ITEM:
             return {
                 ...state,
-                items: action.payload.items,
+                list: action.payload.items,
                 totalAmount: action.payload.totalAmount,
+                numberOfItems: action.payload.numberOfItems,
             };
         case CONST.REMOVE_ITEM:
             return {
                 ...state,
-                items: action.payload.items,
+                list: action.payload.items,
                 totalAmount: action.payload.totalAmount,
             };
         case CONST.MAKE_GTOTAL:

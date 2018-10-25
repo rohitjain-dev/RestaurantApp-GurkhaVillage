@@ -4,6 +4,7 @@ import ElevatedView from 'react-native-elevated-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { filter, some, includes } from 'lodash/collection';
 import { debounce } from 'lodash/function';
+import * as Animatable from 'react-native-animatable';
 
 import {AppHeader, ItemAdjustor} from '../reusables/commons';
 import commonStyle from '../commonStyle';
@@ -11,13 +12,12 @@ import styles from './style';
 import * as CONST from '../../util/Constants';
 import scale, { verticalScale } from '../../util/scale';
 import { getFormattedCurrency } from '../../util/common';
-
+const MyBottomTouchableComponent = Animatable.createAnimatableComponent(TouchableOpacity);
 
 export default class MenuItemsComponent extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            list: this.props.items,
             searchText: ''
         }
     }
@@ -63,10 +63,12 @@ export default class MenuItemsComponent extends Component {
                 <Text style={[styles.amountText, { textAlign: 'left', paddingTop: scale(5),  }]}>{getFormattedCurrency(item.cost)}</Text>
             </View>
             <View style={{ paddingLeft: scale(5), height: scale(40) }} >
+                
                 <ItemAdjustor
-                    decreaseQuantity={() => console.log('descrease')}
-                    increaseQuantity={() => console.log('increase')}
-                    quantity={54} />
+                    decreaseQuantity={() => this.props.removeItem (item)}
+                    increaseQuantity={() => this.props.addItem(item)}
+                    quantity={item.quantity} />
+                
                 <View style={{ paddingTop: scale(3), alignSelf: 'flex-end' }}>
                     <Text style={styles.amountText}>{getFormattedCurrency(item.quantity * item.cost)}</Text>
                 </View>
@@ -79,14 +81,40 @@ export default class MenuItemsComponent extends Component {
             <View style={{flex:1}}>
                 <FlatList
                     renderItem = {this.renderItemCell}
-                    data = {this.state.list}
-                    extraData = {this.state.list} />
+                    data = { this.props.items}
+                    extraData = {this.props.totalAmount} />
             </View>
         )
     }
 
+    renderGoToCart (totalAmount, numberOfItems) {
+        return (
+            <MyBottomTouchableComponent
+                animation = 'slideInUp'
+                duration = {200}
+                onPress = {() => this.props.navigateToCart()}
+                style={{height: scale(50), paddingHorizontal: scale(10), backgroundColor: CONST.SECONDARY_COLOR, flexDirection: 'row'}}>
+
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                    <Text style={{fontSize: scale(10),  color: CONST.WHITE_COLOR, paddingBottom: scale(5)}}>{numberOfItems} items in cart</Text>
+                    <Text style={{fontSize: scale(14), fontWeight: 'bold', color: CONST.WHITE_COLOR}}>{getFormattedCurrency(totalAmount)} + Taxes</Text>
+                </View>
+                
+                <View style={{height: scale(50), justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                    <View style={{paddingHorizontal: scale(10)}}>
+                        <Text style={{fontSize: scale(16), fontWeight: 'bold', color: CONST.WHITE_COLOR}}>View Cart</Text>
+                    </View>
+                    <View style={{height: scale(22), justifyContent: 'center', alignItems: 'center', width: scale(22), borderRadius: scale(14), backgroundColor: CONST.WHITE_COLOR}}>
+                        <Icon name = 'arrow-forward' size={18} color={CONST.SECONDARY_COLOR} />
+                    </View>
+                </View>
+
+            </MyBottomTouchableComponent>
+        )
+    }
+
     render () {
-        const {toggleDrawer, type} = this.props;
+        const {toggleDrawer, type, totalAmount,numberOfItems} = this.props;
         return (
             <SafeAreaView style={commonStyle.safeAreaViewContainer}>
                 <AppHeader
@@ -98,6 +126,7 @@ export default class MenuItemsComponent extends Component {
                 <View style={{flex:1, backgroundColor: CONST.WHITE_COLOR, }}>
                     {this.renderSearchBar()}
                     {this.renderContent()}
+                    {totalAmount > 0 && this.renderGoToCart(totalAmount,numberOfItems)}
                 </View>
 
             </SafeAreaView>

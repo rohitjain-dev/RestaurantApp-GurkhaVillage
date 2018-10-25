@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import { Provider } from 'react-redux'
-import createAppStore from './src/store';
+import createAppStore from './src/Store';
 import Home from './src/Home';
 
 export default class App extends Component {

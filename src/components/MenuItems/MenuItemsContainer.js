@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
 import MenuItemsComponent from './MenuItemsComponent';
-import * as FAKE from '../../util/FakeData';
+import { addItemToCart, removeItemFromCart } from '../../actions/cart';
 
 class MenuItems extends Component {
     constructor (props) {
@@ -10,13 +12,39 @@ class MenuItems extends Component {
 
     render () {
         const {type} = this.props.navigation.state.params;
+        const {starters, navigation} = this.props;
         return (
             <MenuItemsComponent
-                items = {FAKE.STARTERS}
+                totalAmount = {this.props.totalAmount}
+                navigateToCart = {() => navigation.navigate('CheckoutScreen')}
+                addItem = {(item) => this.props.addItem(item)}
+                removeItem = {(item) => this.props.removeItem(item)}
+                items = {starters}
+                numberOfItems = {this.props.numberOfItems}
                 type = {type}
                 toggleDrawer = {() => this.props.navigation.toggleDrawer()} />
         )
     }
 }
 
-export default MenuItems;
+const mapStateToProps = (state) => {
+    const {menu, cart} = state;
+    return {
+        starters: menu.starters,
+        totalAmount: cart.totalAmount,
+        numberOfItems: cart.numberOfItems,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addItem: item => {
+            dispatch(addItemToCart(item));
+        },
+        removeItem: item => {
+            dispatch(removeItemFromCart(item));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (MenuItems);

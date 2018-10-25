@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, SafeAreaView, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, Text,Image, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import ElevatedView from 'react-native-elevated-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -7,22 +7,33 @@ import {AppHeader} from '../reusables/commons';
 import commonStyle from '../commonStyle';
 import { WHITE_COLOR, PRIMARY_COLOR, BLACK_COLOR, LIGHT_GREY } from '../../util/Constants';
 import scale from '../../util/scale';
+const ITEM_1  = require ('../../../assets/icon_menu1_.png');
+const ITEM_2  = require ('../../../assets/icon_menu2_.png');
+const ITEM_3  = require ('../../../assets/icon_menu3_.png');
+const ITEM_4  = require ('../../../assets/icon_menu4_.png');
+const ITEM_5  = require ('../../../assets/icon_menu5_.png');
+const ITEM_6  = require ('../../../assets/icon_menu6_.png');
+const ITEM_7  = require ('../../../assets/icon_menu7_.png');
+const ITEM_8  = require ('../../../assets/icon_menu8_.png');
+const ITEM_9  = require ('../../../assets/icon_menu9_.png');
+
+
 
 const menuItemFirst = [
-    {text: 'Starters', image: ''},
-    {text: 'Tandoor\nDishes', image: ''},
-    {text: 'Noodle\nDishes', image: ''}
+    {text: 'Starters', image: ITEM_1},
+    {text: 'Tandoor\nDishes', image: ITEM_2},
+    {text: 'Noodle\nDishes', image: ITEM_3}
 ];
 const menuItemSecond = [
-    {text: 'Classic\nIndian\nDishes', image: ''},
-    {text: 'Vegetable\nSpecialities', image: ''},
-    {text: 'Rice & Naan', image: ''},
+    {text: 'Classic\nIndian\nDishes', image: ITEM_4},
+    {text: 'Vegetable\nSpecialities', image: ITEM_5},
+    {text: 'Rice & Naan', image: ITEM_6},
 ];
 
 const menuItemThird = [
-    {text: 'Children\'s\nMenu', image: ''},
-    {text: 'Three Course\nSet Meal', image: ''},
-    {text: 'Set Meal\nDessert', image: ''},
+    {text: 'Children\'s\nMenu', image: ITEM_7},
+    {text: 'Three Course\nSet Meal', image: ITEM_8},
+    {text: 'Set Meal\nDessert', image: ITEM_9},
 ];
 
 export default class MenuComponent extends Component {
@@ -51,7 +62,8 @@ export default class MenuComponent extends Component {
     renderMenuItem (item) {
         return (
             <TouchableOpacity onPress={()=> this.props.navigateToMenuItem(1)} style={{height: scale(100), width: scale(100), justifyContent: 'center', alignItems: 'center', borderColor: LIGHT_GREY, borderWidth:1}}>
-                <Text style={{textAlign: 'center'}}>{item.text}</Text>
+                <Image source = {item.image} />
+               
             </TouchableOpacity>
             
         )
@@ -71,7 +83,7 @@ export default class MenuComponent extends Component {
                 </View>
                 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around',  }}>
-                {menuItemFirst.map((item) => {
+                {menuItemSecond.map((item) => {
                     return (
                         <View style={{flex:1,justifyContent: 'center', alignItems: 'center', padding: scale(10),}}>
                             {this.renderMenuItem(item)}
@@ -81,7 +93,7 @@ export default class MenuComponent extends Component {
                 </View>
 
                 <View style={{  flexDirection: 'row', justifyContent: 'space-around',  }}>
-                {menuItemFirst.map((item) => {
+                {menuItemThird.map((item) => {
                     return (
                         <View style={{flex:1,justifyContent: 'center', alignItems: 'center', padding: scale(10),}}>
                             {this.renderMenuItem(item)}
