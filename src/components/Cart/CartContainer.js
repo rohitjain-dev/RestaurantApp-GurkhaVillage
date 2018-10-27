@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CheckoutComponent from './CartComponent';
 import { addItemToCart, removeItemFromCart } from '../../actions/cart';
-
+import {SET_ORDER} from '../../util/Constants';
 class Checkout extends Component {
     constructor (props) {
         super (props);
@@ -12,7 +12,9 @@ class Checkout extends Component {
         const {list, totalAmount, grandTotal, promoCode, addItem, removeItem} = this.props;
         return (
             <CheckoutComponent
-                checkoutCart = {() => this.props.navigation.navigate('CheckoutScreen')}
+                deliveryType = {this.props.deliveryType}
+                isPromoCodeApplied = {this.props.isPromoCodeApplied}
+                checkoutCart = {(order) => this.props.checkoutOrder(order, this.props.navigation.navigate)}
                 addItem = {(item) => addItem(item)}
                 removeItem = {(item) => removeItem(item)}
                 cartList = {list}
@@ -31,7 +33,9 @@ const mapStateToProps = (state) => {
         totalAmount: cart.totalAmount,
         grandTotal: cart.grandTotal,
         promoCode: cart.promoCode,
-        delivery: cart.delivery
+        delivery: cart.delivery,
+        isPromoCodeApplied: cart.isPromoCodeApplied,
+        deliveryType: cart.deliveryType,
     }
 }
 
@@ -42,6 +46,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeItem: item => {
             dispatch(removeItemFromCart(item));
+        },
+        checkoutOrder: (order, navigate) => {
+            dispatch({
+                type: SET_ORDER,
+                payload: order,
+            })
+            navigate('CheckoutScreen');
         }
     }
 }

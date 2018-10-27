@@ -42,7 +42,7 @@ const ManagerDrawer = createDrawerNavigator({
     ChartsScreen: {screen: Charts},
 }, managerDrawerConfig,)
 
-const MainRouter = createStackNavigator({
+const MainRouter = createStackNavigator({  
     LoginScreen: {screen: Login, navigationOptions: {header: null}},
     SignupScreen: {screen: Signup, navigationOptions: {header: null}},
     ManagersDrawer: {screen: ManagerDrawer, navigationOptions: {header: null}},

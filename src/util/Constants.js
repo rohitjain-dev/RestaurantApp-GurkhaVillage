@@ -27,5 +27,6 @@ export const SCREEN_HEIGHT = 667;
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const MAKE_GTOTAL = 'MAKE_GTOTAL';
+export const SET_ORDER = 'SET_ORDER';
 
 export const UPDATE_STARTER = 'UPDATE_STARTER';

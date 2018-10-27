@@ -13,11 +13,14 @@ import { getFormattedCurrency } from '../../util/common';
 export default class CheckoutComponent extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            selected: 1,
+        }
     }
 
     renderAddressView () {
         return (
-            <View style={{ paddingVertical: scale(10) }}>
+            <View>
 
                 <View style={{ paddingVertical: scale(5), borderBottomColor: GREY_BORDER, borderBottomWidth: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: scale(16), paddingRight: scale(5), fontWeight: 'bold', }}>Mr. XYZ Hiyuh</Text>
@@ -28,7 +31,7 @@ export default class CheckoutComponent extends Component {
 
                 {FAKE_DATA.ADDRESSES.map((address) => {
                     return (
-                        <View style={{ paddingBottom: scale(5), flexDirection: 'row', }}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.setState({selected: address.id})} style={{ paddingBottom: scale(5), flexDirection: 'row', }}>
                             <View style={{ paddingTop: verticalScale(10), paddingRight: scale(10) }}>
                                 <Icon
                                     name={address.type === 0 ? 'home' : 'work'}
@@ -45,11 +48,11 @@ export default class CheckoutComponent extends Component {
                             </View>
                             <View style={{ justifyContent: 'center', paddingRight: scale(10) }}>
                                 <Icon
-                                    name={address.type === 0 ? 'check-circle' : 'brightness-1'}
+                                    name={'check-circle'}
                                     size={24}
-                                    color={address.type === 0 ? PRIMARY_COLOR : GREY_BORDER} />
+                                    color={this.state.selected === address.id ? PRIMARY_COLOR : WHITE_COLOR} />
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     )
                 })}
 
@@ -58,28 +61,29 @@ export default class CheckoutComponent extends Component {
     }
 
     renderOrderSummaryView () {
+        const {totalAmount, delivery, isPromoCodeApplied, deliveryType} = this.props;
         return (
             <View style={{paddingVertical: verticalScale(5)}}>
                 <Text style={{ fontSize: scale(16), paddingRight: scale(5), paddingBottom: verticalScale(10), fontWeight: 'bold', }}>Order Summary</Text>
                 
                 <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
                     <Text style={{ fontSize: scale(14), paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Order Total <Text style={{color: PRIMARY_COLOR}}>(View Detail)</Text></Text>
-                    <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}>{getFormattedCurrency(300)}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}>{getFormattedCurrency(totalAmount)}</Text>
                 </View>
 
                 <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
                     <Text style={{ fontSize: scale(14), paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Delivery </Text>
-                    <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}> {getFormattedCurrency(50)}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}> {getFormattedCurrency(delivery)}</Text>
                 </View>
 
-                <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
+                {isPromoCodeApplied && <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
                     <Text style={{ fontSize: scale(14), paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Promo Code Discount </Text>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}>- {getFormattedCurrency(20)}</Text>
-                </View>
+                </View>}
 
                 <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
                     <Text style={{ fontSize: scale(16), fontWeight: 'bold', paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Total Payable</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: scale(16),paddingVertical: verticalScale(5) }}>{getFormattedCurrency(330)}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: scale(16),paddingVertical: verticalScale(5) }}>{getFormattedCurrency((totalAmount + delivery - (isPromoCodeApplied ? 20 : 0)))}</Text>
                 </View>
                 
             </View>
@@ -88,7 +92,7 @@ export default class CheckoutComponent extends Component {
 
     renderInputView () {
         return (
-            <ScrollView style={{flex:1, padding: scale(16), backgroundColor: WHITE_COLOR}}>
+            <ScrollView bounces = {false} style={{flex:1, padding: scale(16), backgroundColor: WHITE_COLOR}}>
                 {this.renderAddressView()}
                 {this.renderOrderSummaryView()}
             </ScrollView>
@@ -96,11 +100,12 @@ export default class CheckoutComponent extends Component {
     }
 
     renderBottomView () {
+        const {totalAmount, delivery, isPromoCodeApplied, deliveryType} = this.props;
         return (
             <TouchableOpacity onPress={() => this.props.checkoutCart()} style={{backgroundColor: SECONDARY_COLOR,  height: scale(50), flexDirection: 'row' }}>
                 <View style={{ flex: 1, paddingHorizontal: scale(10), justifyContent: 'center' }}>
                     <Text style={{ fontSize: scale(14), paddingBottom: scale(5), fontWeight: 'bold', color: WHITE_COLOR }}>Confirm the Payment</Text>
-                    <Text style={{ fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR }}>{getFormattedCurrency(330)}</Text>
+                    <Text style={{ fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR }}>{getFormattedCurrency((totalAmount + delivery - (isPromoCodeApplied ? 20 : 0)))}</Text>
                     
                 </View>
                 <View style={{ height: scale(50), justifyContent: 'center', alignItems: 'center', width: scale(50) }}>

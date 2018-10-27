@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, TouchableOpacity,Text,ScrollView,TextInput, SafeAreaView} from 'react-native';
 import { AppHeader, ItemAdjustor } from '../reusables/commons';
-import { WHITE_COLOR, LIGHT_GREY, PRIMARY_COLOR, SECONDARY_COLOR } from '../../util/Constants';
+import { WHITE_COLOR, LIGHT_GREY, PRIMARY_COLOR, SECONDARY_COLOR, GREY_BORDER } from '../../util/Constants';
 import commonStyle from '../commonStyle';
 import showToast from '../../util/Toast';
 import scale from '../../util/scale';
@@ -17,6 +17,8 @@ export default class CheckoutComponent extends Component {
         this.state = {
             deliveryOption: 0,
             deliveryAmount: 0,
+            promoCode: '',
+            isPromoCodeApplied: false
         }
     }
 
@@ -43,7 +45,7 @@ export default class CheckoutComponent extends Component {
                         buttonStyle={{}}
                         buttonWrapStyle={{marginLeft: - scale(10)}} />
                     
-                    <TouchableOpacity onPress={() => this.setState({deliveryOption: 0})}>
+                    <TouchableOpacity onPress={() => this.setState({deliveryOption: 0, deliveryAmount: 0})}>
                         <Text style={{paddingLeft: scale(10)}}>Take Away</Text>
                     </TouchableOpacity>
                 </View>
@@ -70,6 +72,16 @@ export default class CheckoutComponent extends Component {
         )
     }
 
+    handlePromoCode () {
+        if (this.state.promoCode && this.state.promoCode === 'FIRST20') {
+            this.setState({
+                isPromoCodeApplied: true,
+            })
+        } else {
+            showToast ('Please enter correct promo code to avail discount.')
+        }
+    }
+
     renderPromoCodeView () {
         return (
             <View style={{ paddingTop: scale(20), borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: LIGHT_GREY, justifyContent: 'space-between', }}>
@@ -82,7 +94,7 @@ export default class CheckoutComponent extends Component {
                         style={{ flex: 1, paddingLeft: scale(10), color: PRIMARY_COLOR, fontWeight: 'bold' }}
                         value={this.state.promoCode}
                         onChangeText={(text) => this.setState({ promoCode: text })} />
-                    <TouchableOpacity style={{ paddingVertical: 5 }} onPress={() => showToast('Feature not yet supported')}>
+                    <TouchableOpacity style={{ paddingVertical: 5 }} onPress={() => this.handlePromoCode()}>
                         <Text style={{ fontWeight: 'bold', fontSize: scale(12), color: PRIMARY_COLOR }}>APPLY</Text>
                     </TouchableOpacity>
                 </View>
@@ -140,14 +152,21 @@ export default class CheckoutComponent extends Component {
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>Subtotal</Text>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>{getFormattedCurrency(totalAmount)}</Text>
                 </View>
-                <View style={{justifyContent: 'space-between', paddingTop: scale(5), paddingBottom: scale(12), flexDirection: 'row'}}>
+                <View style={{justifyContent: 'space-between', paddingTop: scale(5), flexDirection: 'row'}}>
                     <Text style={{fontSize: scale(10), }}>Delivery: </Text>
                     <Text style={{fontSize: scale(10), }}>{getFormattedCurrency(this.state.deliveryAmount)}</Text>
                 </View>
 
-                <View style={{paddingVertical: scale(12), borderTopWidth: 0.5,  borderColor: LIGHT_GREY, justifyContent: 'space-between', flexDirection: 'row'}}>
+                {this.state.isPromoCodeApplied && <View style={{justifyContent: 'space-between', paddingTop: scale(5),flexDirection: 'row'}}>
+                    <Text style={{fontSize: scale(10), }}>Promo code Discount: </Text>
+                    <Text style={{fontSize: scale(10), }}>- {getFormattedCurrency(20)}</Text>
+                </View>}
+
+                <View style={{paddingVertical: 4,  height: 0, borderColor: GREY_BORDER, borderBottomWidth: 1}} />
+
+                <View style={{paddingVertical: scale(12),  justifyContent: 'space-between', flexDirection: 'row'}}>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>Grand Total</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>{getFormattedCurrency((totalAmount+this.state.deliveryAmount))}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: scale(14), }}>{getFormattedCurrency((totalAmount+this.state.deliveryAmount - (this.state.isPromoCodeApplied ? 20 : 0)))}</Text>
                 </View>
             </View>
         )
@@ -156,9 +175,9 @@ export default class CheckoutComponent extends Component {
     renderBottomView () {
         const {totalAmount} = this.props;
         return (
-            <TouchableOpacity onPress = {() => this.props.checkoutCart()} style={{position: 'absolute', backgroundColor: SECONDARY_COLOR, bottom: 0, right:0, left: 0, height: scale(50), flexDirection: 'row'}}>
+            <TouchableOpacity onPress = {() => this.props.checkoutCart({deliveryType: this.state.deliveryOption, isPromoCodeApplied: this.state.isPromoCodeApplied})} style={{position: 'absolute', backgroundColor: SECONDARY_COLOR, bottom: 0, right:0, left: 0, height: scale(50), flexDirection: 'row'}}>
                 <View style={{flex: 1, paddingHorizontal: scale(10), justifyContent: 'center'}}>
-                    <Text style={{fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR}}>Place order ({getFormattedCurrency((totalAmount+this.state.deliveryAmount))})</Text>
+                    <Text style={{fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR}}>Place order ({getFormattedCurrency((totalAmount+this.state.deliveryAmount - (this.state.isPromoCodeApplied ? 20 : 0)))})</Text>
                 </View>
                 <View style={{height: scale(50), justifyContent: 'center', alignItems: 'center',width: scale(50)}}>
                     <View style={{height: scale(22), justifyContent: 'center', alignItems: 'center', width: scale(22), borderRadius: scale(14), backgroundColor: WHITE_COLOR}}>
@@ -185,6 +204,8 @@ export default class CheckoutComponent extends Component {
                     {this.renderDeliveryOptions()}
                     {this.renderAmountView()}
                     {this.renderPromoCodeView()}
+                    {this.state.isPromoCodeApplied && <Text style={{paddingTop: 5, fontSize: 10, color: PRIMARY_COLOR}}>Promo code applied.</Text>}
+
                     <View style={{height: scale(80)}} />
                 </ScrollView>
                 {this.renderBottomView()}

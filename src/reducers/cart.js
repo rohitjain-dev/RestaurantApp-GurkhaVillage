@@ -5,8 +5,10 @@ const initialState = {
     totalAmount: 0,
     delivery: 20,
     grandTotal: 0,
-    promoCode: 'FIRST50',
+    promoCode: 'FIRST20',
     numberOfItems: 0,
+    isPromoCodeApplied: false,
+    deliveryType: 1, // 0 - Take Away, 1- Home delivery
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +32,14 @@ export default (state = initialState, action) => {
                 delivery: action.payload.delivery,
                 grandTotal: action.payload.grandTotal,
             };
+
+        case CONST.SET_ORDER:  
+            return {
+                ...state,
+                isPromoCodeApplied: action.payload.isPromoCodeApplied,
+                deliveryType: action.payload.deliveryType,
+                delivery: ((action.payload.deliveryType) === 1) ? 20 : 0,
+            }
         default: return state;
     }
 }
