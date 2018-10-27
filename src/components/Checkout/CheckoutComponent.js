@@ -9,7 +9,7 @@ import { WHITE_COLOR, PRIMARY_COLOR, GREY_BORDER, SECONDARY_COLOR, GREY_COLOR } 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as FAKE_DATA from '../../util/FakeData';
 import { getFormattedCurrency } from '../../util/common';
-
+import showToast from '../../util/Toast/index';
 export default class CheckoutComponent extends Component {
     constructor (props) {
         super(props);
@@ -23,7 +23,7 @@ export default class CheckoutComponent extends Component {
             <View>
 
                 <View style={{ paddingVertical: scale(5), borderBottomColor: GREY_BORDER, borderBottomWidth: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: scale(16), paddingRight: scale(5), fontWeight: 'bold', }}>Mr. XYZ Hiyuh</Text>
+                    <Text style={{ fontSize: scale(16), paddingRight: scale(5), fontWeight: 'bold', }}>Choose Address</Text>
                     <TouchableOpacity >
                     <Icon name='add-circle' size={28} color={PRIMARY_COLOR} />
                     </TouchableOpacity>
@@ -67,7 +67,7 @@ export default class CheckoutComponent extends Component {
                 <Text style={{ fontSize: scale(16), paddingRight: scale(5), paddingBottom: verticalScale(10), fontWeight: 'bold', }}>Order Summary</Text>
                 
                 <View style={{flexDirection: 'row', borderBottomColor: GREY_BORDER, borderBottomWidth: 0.5, justifyContent: 'space-between'}}>
-                    <Text style={{ fontSize: scale(14), paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Order Total <Text style={{color: PRIMARY_COLOR}}>(View Detail)</Text></Text>
+                    <Text style={{ fontSize: scale(14), paddingRight: scale(5), paddingVertical: verticalScale(5)  }}>Order Total <Text onPress ={() => this.props.goBack()} style={{color: PRIMARY_COLOR}}>(View Detail)</Text></Text>
                     <Text style={{fontWeight: 'bold', fontSize: scale(14),paddingVertical: verticalScale(5) }}>{getFormattedCurrency(totalAmount)}</Text>
                 </View>
 
@@ -91,9 +91,10 @@ export default class CheckoutComponent extends Component {
     }
 
     renderInputView () {
+        const {deliveryType} = this.props;
         return (
             <ScrollView bounces = {false} style={{flex:1, padding: scale(16), backgroundColor: WHITE_COLOR}}>
-                {this.renderAddressView()}
+                {deliveryType === 1 && this.renderAddressView()}
                 {this.renderOrderSummaryView()}
             </ScrollView>
         )
@@ -102,7 +103,7 @@ export default class CheckoutComponent extends Component {
     renderBottomView () {
         const {totalAmount, delivery, isPromoCodeApplied, deliveryType} = this.props;
         return (
-            <TouchableOpacity onPress={() => this.props.checkoutCart()} style={{backgroundColor: SECONDARY_COLOR,  height: scale(50), flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => showToast('Feature yet to be developed.') } style={{backgroundColor: SECONDARY_COLOR,  height: scale(50), flexDirection: 'row' }}>
                 <View style={{ flex: 1, paddingHorizontal: scale(10), justifyContent: 'center' }}>
                     <Text style={{ fontSize: scale(14), paddingBottom: scale(5), fontWeight: 'bold', color: WHITE_COLOR }}>Confirm the Payment</Text>
                     <Text style={{ fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR }}>{getFormattedCurrency((totalAmount + delivery - (isPromoCodeApplied ? 20 : 0)))}</Text>

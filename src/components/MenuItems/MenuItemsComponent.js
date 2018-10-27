@@ -18,7 +18,16 @@ export default class MenuItemsComponent extends Component {
     constructor (props) {
         super (props);
         this.state = {
-            searchText: ''
+            searchText: '',
+            list: props.items
+        }
+    }
+
+    componentWillReceiveProps (nextProps) {
+        if (nextProps.items) {
+            const {items} = nextProps;
+            this.filterData(this.state.searchText, items);
+           
         }
     }
 
@@ -81,7 +90,7 @@ export default class MenuItemsComponent extends Component {
             <View style={{flex:1}}>
                 <FlatList
                     renderItem = {this.renderItemCell}
-                    data = { this.props.items}
+                    data = { this.state.list}
                     extraData = {this.props.totalAmount} />
             </View>
         )
@@ -133,18 +142,24 @@ export default class MenuItemsComponent extends Component {
         )
     }
 
-    filterData = (text) => {
+    filterData = (text, list = undefined) => {
         this.setState({ searchText: text });
         debounce(() => {
             // use internal search logic (depth first)!
-            const results = this.internalSearch(text);
+            const results = this.internalSearch(text, list);
             this.setState({list: results});  
             
           }, 300)();
     }
 
-    internalSearch = input => {
-        const {items} = this.props;
+    internalSearch = (input, list = undefined) => {
+        //const {items} = this.props;
+        let items = [];
+        if (list) {
+            items = list;
+        } else {
+            items = this.props.items;
+        }
         if (input === '') {
             //return whole list.
             return items;

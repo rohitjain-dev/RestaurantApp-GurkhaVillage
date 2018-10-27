@@ -95,7 +95,7 @@ export default class CheckoutComponent extends Component {
                         value={this.state.promoCode}
                         onChangeText={(text) => this.setState({ promoCode: text })} />
                     <TouchableOpacity style={{ paddingVertical: 5 }} onPress={() => this.handlePromoCode()}>
-                        <Text style={{ fontWeight: 'bold', fontSize: scale(12), color: PRIMARY_COLOR }}>APPLY</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: scale(12), color: PRIMARY_COLOR }}>{this.state.isPromoCodeApplied ? 'DISMISS' :  'APPLY'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

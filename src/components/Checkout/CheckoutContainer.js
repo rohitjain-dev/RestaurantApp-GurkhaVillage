@@ -13,7 +13,7 @@ class Checkout extends Component {
                 deliveryType = {this.props.deliveryType}
                 isPromoCodeApplied = {this.props.isPromoCodeApplied}
                 delivery = {this.props.delivery}
-                checkoutCart = {() => this.props.navigation.navigate('CheckoutScreen')}
+                // checkoutCart = {() => this.props.navigation.navigate('CheckoutScreen')}
                 totalAmount = {this.props.totalAmount}
                 goBack = {() => this.props.navigation.goBack()} />
         )
