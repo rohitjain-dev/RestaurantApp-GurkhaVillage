@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {View, SafeAreaView, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {View, SafeAreaView, Text, ScrollView, TextInput, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import commonStyle from '../commonStyle';
 import { WHITE_COLOR, LIGHT_GREY, PRIMARY_COLOR, SECONDARY_COLOR, LIGHT_BLUE, BLACK_COLOR } from '../../util/Constants';
 import scale, { verticalScale } from '../../util/scale';
 import { AppHeader } from '../reusables/commons';
+import actualDimensions from '../../util/Device';
+const {height, width} = actualDimensions;
+const BACKGROUND_IMAGE = require('../../../assets/Background_.png');
+const LOGO = require('../../../assets/icon_logo_small_.png');
 
 export default class SignupComponent extends Component {
     constructor (props) {
@@ -19,9 +23,15 @@ export default class SignupComponent extends Component {
 
     renderInputView () {
         return (
-            <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: LIGHT_BLUE, padding: scale(16)}}>
+            <View style={{flex:1, justifyContent: 'flex-end', padding: scale(16)}}>
                <ScrollView showsVerticalScrollIndicator = {false} bounces = {false}  style={{flex:1}}>
-                <View style={{height: verticalScale(250)}}/>
+                <View style={{paddingVertical: verticalScale(40), justifyContent: 'center', alignItems: 'center'}}>
+                    <Image style={{height: 130, width: 130}} source={LOGO}/>
+                    <Text style={{fontSize: 20, color: WHITE_COLOR, paddingTop: 5, fontWeight: 'bold'}}>GURKHA VILLAGE</Text>
+                    <Text style={{fontSize: 8, color: WHITE_COLOR, paddingTop: 5, fontWeight: 'bold'}}>NEPALESE RESTAURANT AND BAR</Text>
+                    <Text style={{fontSize: 30, color: WHITE_COLOR, paddingTop: 40, fontWeight: 'bold'}}>WELCOME</Text>
+                
+                </View>
                 
                 <View style={{paddingVertical: verticalScale(2), alignItems: 'center', flexDirection: 'row', borderBottomColor: WHITE_COLOR, borderBottomWidth: scale(0.3)}}>
                     <Icon name='account-box' color={WHITE_COLOR} size={scale(24)} />
@@ -91,13 +101,10 @@ export default class SignupComponent extends Component {
 
     render () {
         return (
-            <SafeAreaView style={commonStyle.safeAreaViewContainer}>
-                <AppHeader
-                    backgroundColor = {LIGHT_BLUE}
-                    leftOnPress = {() => this.props.goBack()}
-                    title =''
-                    hasLeftComponent
-                    />
+            <SafeAreaView style={{flex:1}}>
+                <View style={{position: 'absolute', height, width, right: 0, bottom: 0, left: 0, top: 0}}>
+                    <Image style={{flex:1}} resizeMode='cover' source = {BACKGROUND_IMAGE}/>
+                </View>
                 {this.renderInputView()}
             </SafeAreaView>
         )

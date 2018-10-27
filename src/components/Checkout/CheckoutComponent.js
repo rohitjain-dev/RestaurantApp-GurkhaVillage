@@ -99,7 +99,9 @@ export default class CheckoutComponent extends Component {
         return (
             <TouchableOpacity onPress={() => this.props.checkoutCart()} style={{backgroundColor: SECONDARY_COLOR,  height: scale(50), flexDirection: 'row' }}>
                 <View style={{ flex: 1, paddingHorizontal: scale(10), justifyContent: 'center' }}>
-                    <Text style={{ fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR }}>o</Text>
+                    <Text style={{ fontSize: scale(14), paddingBottom: scale(5), fontWeight: 'bold', color: WHITE_COLOR }}>Confirm the Payment</Text>
+                    <Text style={{ fontSize: scale(16), fontWeight: 'bold', color: WHITE_COLOR }}>{getFormattedCurrency(330)}</Text>
+                    
                 </View>
                 <View style={{ height: scale(50), justifyContent: 'center', alignItems: 'center', width: scale(50) }}>
                     <View style={{ height: scale(22), justifyContent: 'center', alignItems: 'center', width: scale(22), borderRadius: scale(14), backgroundColor: WHITE_COLOR }}>

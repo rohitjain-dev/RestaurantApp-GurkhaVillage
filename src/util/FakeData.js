@@ -250,3 +250,51 @@ export const ADDRESSES = [
         isSelected: false,
     }
 ]
+
+export const MANAGE_ORDERS = [
+    {
+        id: 1,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 2,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 3,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 4,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 5,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 6,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 7,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 8,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    },
+    {
+        id: 9,
+        name: 'Ser Louis Hugh',
+        shortDescription: 'Vegetable Chau Chau',
+    }
+]

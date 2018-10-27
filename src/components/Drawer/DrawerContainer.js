@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import DrawerComponent from './DrawerComponent';
 import { resetAction } from '../../AppNavigator';
+import ManagerDrawer from './ManagerDrawer';
+
 class Drawer extends Component {
     constructor (props) {
         super (props);
@@ -13,9 +15,13 @@ class Drawer extends Component {
     }
 
     render () {
+        const {isManager} = this.props;
         return (
-            <DrawerComponent
-                navigateTo = {(screenName, params, reset) => this.navigateToScreen (screenName, params, reset)} />
+            isManager ?
+                <ManagerDrawer
+                    navigateTo = {(screenName, params, reset) => this.navigateToScreen (screenName, params, reset)} /> :
+                <DrawerComponent
+                    navigateTo = {(screenName, params, reset) => this.navigateToScreen (screenName, params, reset)} />
         )
     }
 }

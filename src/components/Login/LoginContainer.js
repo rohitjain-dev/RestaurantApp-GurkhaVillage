@@ -11,6 +11,7 @@ class Login extends Component {
     render () {
         return (
             <LoginComponent
+                onLongPress = {() => this.props.navigation.dispatch(resetAction('ManagersDrawer'))}
                 login = {() => this.props.navigation.dispatch(resetAction('Drawer'))}
                 navigateToSignup = {() => this.props.navigation.navigate('SignupScreen')}
             />

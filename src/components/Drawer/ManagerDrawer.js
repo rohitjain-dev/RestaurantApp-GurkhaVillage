@@ -11,12 +11,12 @@ const HOME_ICON = require('../../../assets/icon_home_.png');
 const ORDER_ICON = require('../../../assets/icon_order_.png');
 const PROFILE_ICON = require('../../../assets/icon_profile_.png');
 const BELL_ICON = require('../../../assets/icon_bell_.png');
-const MENU_ICON = require('../../../assets/icon_menu_.png');
+const SETTING_ICON = require('../../../assets/icon_settings_.png');
 const CONTACT_ICON = require('../../../assets/icon_telephone_.png');
 const LOGOUT_ICON = require('../../../assets/icon_logout_.png');
 const SMALL_LOGO = require('../../../assets/icon_logo_small_.png')
 
-export default class DrawerComponent extends Component {
+export default class ManagerDrawer extends Component {
     constructor (props) {
         super (props);
     }
@@ -50,7 +50,7 @@ export default class DrawerComponent extends Component {
 
     renderBottomLogo() {
         return (
-            <View style={{paddingVertical: scale(20), width: scale(250), alignContent: 'center',}}>
+            <View style={{bottom: 0,  paddingBottom: scale(20), width: scale(250), alignContent: 'center', position: 'absolute',}}>
                 <Image source ={SMALL_LOGO} style={{alignSelf: 'center'}} />
                 <Text style={{fontSize: scale(14), fontWeight: 'bold', textAlign: 'center', color:WHITE_COLOR}}>GURKHA VILLAGE</Text>
                 <Text style={{fontSize: scale(6), fontWeight: 'bold',textAlign: 'center', color:WHITE_COLOR}}>NEPALESE RESTAURANT & BAR</Text>
@@ -62,18 +62,13 @@ export default class DrawerComponent extends Component {
         const {navigateTo} = this.props;
         return (
             <SafeAreaView style={commonStyles.safeAreaViewContainer}>
-                <ScrollView showsVerticalScrollIndicator = {false} bounces = {false} style={{flex:1}}>
+                <ScrollView bounces = {false} style={{flex:1}}>
                     {this.renderUserSection ()}
-                    {this.renderDrawerItem('Home', () => navigateTo('MenuGroupScreen'), HOME_ICON)}
-                    {this.renderDrawerItem('My Orders', () => navigateTo('PastOrderScreen'), ORDER_ICON)}
-                    {this.renderDrawerItem('Menu', () => navigateTo('MenuGroupScreen'), MENU_ICON)}
-                     {this.renderDrawerItem('Profile', () => showToast('Feature yet to be developed'), PROFILE_ICON)}
-                    {this.renderDrawerItem('Notifications', () => showToast('Feature yet to be developed'), BELL_ICON)}
-                    {this.renderDrawerItem('Contact Us', () => showToast('Feature yet to be developed'), CONTACT_ICON)}
+                    {this.renderDrawerItem('Charts', () => navigateTo('ChartsScreen'), ORDER_ICON)}
+                    {this.renderDrawerItem('Orders', () => navigateTo('OrdersScreen'), ORDER_ICON)}
                     {this.renderDrawerItem('Log out', () => navigateTo('LoginScreen', {}, true), LOGOUT_ICON)}
-                    {this.renderBottomLogo()}
                 </ScrollView>
-                
+                {this.renderBottomLogo()}
             </SafeAreaView>
         )
     }
